@@ -8,7 +8,7 @@
   import Image from '$lib/components/Image.svelte';
   import NotEditable from '$lib/components/NotEditable.svelte';
   import PostTeaser from '$lib/components/PostTeaser.svelte';
-
+  import * as Select from "$lib/components/ui/select";
   import { fetchJSON, extendQueryParams, classNames } from '$lib/util';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
@@ -188,7 +188,35 @@
       />
       {#if currentUser}
         <div class="absolute inset-y-0 right-3 pt-[5px]">
-          <select
+          <Select.Root 
+          portal={null}>
+            <Select.Trigger class="w-[180px]">
+              <Select.Value placeholder="Select a filter" value={searchFilter} />
+            </Select.Trigger>
+            <Select.Content>
+              <Select.Group>
+                <!-- <Select.Label>Fruits</Select.Label> -->
+
+                  <Select.Item on:click={() => {
+                    searchFilter = "";
+                    onInput();
+                  }} value="" label="Show all"
+                    >Show all</Select.Item>
+                    <Select.Item on:click={() => {
+                      searchFilter = "private";
+                      onInput();
+                    }} value="private" label="Private"
+                    >Private</Select.Item>
+                    <Select.Item on:click={() => {
+                      searchFilter = "public";
+                      onInput();
+                    }} value="public" label="Public"
+                    >Public</Select.Item>
+              </Select.Group>
+            </Select.Content>
+            <Select.Input name="favoriteFruit" />
+          </Select.Root>
+          <!-- <select
             bind:value={searchFilter}
             id="country"
             name="country"
@@ -199,7 +227,7 @@
             <option value="">Show all</option>
             <option value="private">Private</option>
             <option value="public">Public</option>
-          </select>
+          </select> -->
         </div>
       {/if}
     </div>

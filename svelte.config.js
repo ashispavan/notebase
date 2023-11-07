@@ -10,7 +10,7 @@ const config = {
       checkOrigin: true
     }
   },
-  preprocess: vitePreprocess()
+  preprocess: [vitePreprocess({})]
 };
 
 export default config;
