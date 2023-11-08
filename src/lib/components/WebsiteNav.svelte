@@ -8,12 +8,15 @@
   import Input from './Input.svelte';
   import SecondaryButton from './SecondaryButton.svelte';
   import { previousPage } from '$lib/stores';
+  import * as Dialog from "$lib/components/ui/dialog";
   export let editable = false;
+  import { Button } from "$lib/components/ui/button";
 
   // Explicitly set by home page, so we get live updates
   export let bio = undefined;
   export let showMenu = false;
   export let backButton = false;
+
   $: data = $page.data;
   $: currentUser = data.currentUser;
   $: latestBio = bio || data.bio;
@@ -88,7 +91,10 @@
           <PrimaryButton size="sm" href="/letters/new">New letter</PrimaryButton>
         {/if}
         <button
-          on:click={() => (showMenu = true)}
+          on:click={() => {
+            showMenu = true;
+            }
+          }
           class="w-[26px] h-[26px] border border-black rounded-full"
           title={'Open Menu'}
         >
@@ -112,8 +118,85 @@
   </div>
 </div>
 
+<Dialog.Root bind:open={showMenu}>
+  <Dialog.Trigger></Dialog.Trigger>
+  <Dialog.Content>
+    <!-- <Dialog.Header>
+      <Dialog.Title>Are you sure absolutely sure?</Dialog.Title>
+      <Dialog.Description>
+        This action cannot be undone. This will permanently delete your account
+        and remove your data from our servers.
+      </Dialog.Description>
+    </Dialog.Header> -->
+    <div class="p-8 flex flex-col space-y-4 relative">
+      <!-- <button
+        class="absolute right-6 sm:-right-4 -top-4 bg-black text-white rounded-full"
+        on:click={() => (showMenu = false)}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-8 h-8"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button> -->
+
+      {#if currentUser}
+        <slot />
+
+        <div class="space-y-4 flex flex-col pt-8">
+          <Button size="sm" href="/letters/new">New letter</Button>
+        </div>
+
+        <div class="space-y-4 flex flex-col">
+          {#if $page.url?.pathname !== '/friends'}
+            <Button size="sm" href="/friends">Manage friends</Button>
+          {/if}
+        </div>
+      {/if}
+
+      {#if currentUser}
+        <div class="pt-8 flex">
+          <div>Signed in as {currentUser.name}</div>
+          <div class="flex-1" />
+          <div>
+            <a
+              data-sveltekit-preload-data="off"
+              class="underline"
+              href="/logout"
+              on:click={toggleMenu}>Sign out</a
+            >
+          </div>
+        </div>
+      {:else}
+        <div class="">
+          <form method="POST" action="/login" class="flex flex-col space-y-8">
+            <div class="flex flex-col">
+              <label for="password" class="font-semibold mb-6 text-3xl">Sign in</label>
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+              />
+            </div>
+            <PrimaryButton type="submit">Sign in</PrimaryButton>
+            <div class="pt-8 text-sm sm:text-base">
+              Only the owner can sign in. But you can run <a class="underline" href="https://www.postowl.com">PostOwl</a> yourself.
+            </div>
+          </form>
+        </div>
+      {/if}
+    </div>
+  </Dialog.Content>
+</Dialog.Root>
+
 {#if showMenu && !editable}
-  <Modal on:close={() => (showMenu = false)}>
+  <!-- <Modal on:close={() => (showMenu = false)}>
     <div class="p-8 flex flex-col space-y-4 relative">
       <button
         class="absolute right-6 sm:-right-4 -top-4 bg-black text-white rounded-full"
@@ -178,7 +261,7 @@
         </div>
       {/if}
     </div>
-  </Modal>
+  </Modal> -->
 {/if}
 
 <svelte:window on:keydown={onKeyDown} />

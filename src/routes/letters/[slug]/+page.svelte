@@ -8,6 +8,7 @@
   import Post from '$lib/components/Post.svelte';
   import NotEditable from '$lib/components/NotEditable.svelte';
   import RecipientsSelector from '$lib/components/RecipientsSelector.svelte';
+  import { Button } from "$lib/components/ui/button";
 
   export let data;
   let editable, title, content, created_at, teaser_image, teaser, is_public, recipients;
@@ -103,14 +104,15 @@
 <WebsiteNav bio={data.bio} bind:editable bind:showMenu backButton={true}>
   {#if currentUser}
     <div class="space-y-4 flex flex-col">
-      <SecondaryButton
+      <Button
         size="sm"
         on:click={() => {
           editable = true;
           showMenu = false;
-        }}>Edit letter</SecondaryButton
+        }}>
+        Edit letter</Button
       >
-      <SecondaryButton size="sm" on:click={deletePost}>Delete letter</SecondaryButton>
+      <Button variant="destructive" on:click={deletePost}>Delete letter</Button>
     </div>
   {/if}
 </WebsiteNav>

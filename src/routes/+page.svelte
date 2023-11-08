@@ -12,6 +12,7 @@
   import { fetchJSON, extendQueryParams, classNames } from '$lib/util';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
+  import { Button } from "$lib/components/ui/button";
 
   export let data;
   let editable, name, avatar, bio;
@@ -98,13 +99,12 @@
 <WebsiteNav bio={{ avatar, name, bio }} bind:editable bind:showMenu>
   {#if currentUser}
     <div class="space-y-4 flex flex-col">
-      <SecondaryButton
-        size="sm"
+      <Button
+      variant="outline"
         on:click={() => {
           editable = true;
           showMenu = false;
-        }}>Edit Profile</SecondaryButton
-      >
+        }}>Edit Profile</Button>
     </div>
   {/if}
 </WebsiteNav>
