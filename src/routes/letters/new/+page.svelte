@@ -46,7 +46,7 @@
 </script>
 
 <svelte:head>
-  <title>New letter</title>
+  <title>New note</title>
   <link rel="icon" type="image/png" sizes="300x300" href={bio.avatar} />
   <link rel="apple-touch-icon" sizes="300x300" href={bio.avatar} />
 </svelte:head>

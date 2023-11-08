@@ -88,7 +88,7 @@
         </a>
         <div class="flex-1" />
         {#if currentUser}
-          <PrimaryButton size="sm" href="/letters/new">New letter</PrimaryButton>
+          <PrimaryButton size="sm" href="/letters/new">New note</PrimaryButton>
         {/if}
         <button
           on:click={() => {
@@ -149,7 +149,7 @@
         <slot />
 
         <div class="space-y-4 flex flex-col pt-8">
-          <Button size="sm" href="/letters/new">New letter</Button>
+          <Button size="sm" href="/letters/new">New note</Button>
         </div>
 
         <div class="space-y-4 flex flex-col">

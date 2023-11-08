@@ -195,7 +195,7 @@ export async function updatePost(
           <p>${teaser}</p>
           <p><a href="${`${origin}/letters/${slug}?secret=${secret}`}">Read the full letter</a>.</p>
           <p>${ADMIN_NAME.split(' ')[0]}</p>
-          <p><em>(This message was sent from ${ADMIN_NAME}'s <a href="https://www.postowl.com">PostOwl</a> website.)</em></p>`
+          <p><em>(This message was sent from ${ADMIN_NAME}'s <a href="https://www.nodebase.fly.dev">Notebase</a> website.)</em></p>`
         );
         new_recipients.push(recipient_id);
       } else {

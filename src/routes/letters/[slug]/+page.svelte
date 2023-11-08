@@ -110,9 +110,9 @@
           editable = true;
           showMenu = false;
         }}>
-        Edit letter</Button
+        Edit note</Button
       >
-      <Button variant="destructive" on:click={deletePost}>Delete letter</Button>
+      <Button variant="destructive" on:click={deletePost}>Delete note</Button>
     </div>
   {/if}
 </WebsiteNav>
